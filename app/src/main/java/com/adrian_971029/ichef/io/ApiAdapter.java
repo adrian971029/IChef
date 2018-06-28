@@ -1,6 +1,7 @@
 package com.adrian_971029.ichef.io;
 
-import com.adrian_971029.ichef.Constants;
+import com.adrian_971029.ichef.interfaces.ApiService;
+import com.adrian_971029.ichef.utils.Constants;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

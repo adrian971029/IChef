@@ -1,4 +1,4 @@
-package com.adrian_971029.ichef;
+package com.adrian_971029.ichef.utils;
 
 public class Constants {
 

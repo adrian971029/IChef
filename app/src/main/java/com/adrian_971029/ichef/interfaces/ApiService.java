@@ -1,6 +1,6 @@
-package com.adrian_971029.ichef.io;
+package com.adrian_971029.ichef.interfaces;
 
-import com.adrian_971029.ichef.Constants;
+import com.adrian_971029.ichef.utils.Constants;
 import com.adrian_971029.ichef.io.response.RecetasResponse;
 
 import retrofit2.Call;
