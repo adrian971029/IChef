@@ -3,6 +3,7 @@ package com.adrian_971029.ichef.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -10,16 +11,22 @@ import java.util.ArrayList;
 public class Recetas implements Parcelable {
 
     @SerializedName("id")
+    @Expose
     private int id;
     @SerializedName("name")
+    @Expose
     private String name;
     @SerializedName("ingredients")
-    private ArrayList<Ingredientes> ingredients;
+    @Expose
+    private ArrayList<Ingredient> ingredients;
     @SerializedName("steps")
-    private ArrayList<Passos> steps;
+    @Expose
+    private ArrayList<Step> steps;
     @SerializedName("servings")
+    @Expose
     private int servings;
     @SerializedName("image")
+    @Expose
     private String image;
 
     public Recetas() {
@@ -60,19 +67,19 @@ public class Recetas implements Parcelable {
         this.name = name;
     }
 
-    public ArrayList<Ingredientes> getIngredients() {
+    public ArrayList<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(ArrayList<Ingredientes> ingredients) {
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public ArrayList<Passos> getSteps() {
+    public ArrayList<Step> getSteps() {
         return steps;
     }
 
-    public void setSteps(ArrayList<Passos> steps) {
+    public void setSteps(ArrayList<Step> steps) {
         this.steps = steps;
     }
 

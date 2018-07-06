@@ -3,44 +3,48 @@ package com.adrian_971029.ichef.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Ingredientes implements Parcelable{
+public class Ingredient implements Parcelable{
 
     @SerializedName("quantity")
-    private int quantity;
+    @Expose
+    private double quantity;
     @SerializedName("measure")
+    @Expose
     private String measure;
     @SerializedName("ingredient")
+    @Expose
     private String ingredient;
 
-    public Ingredientes() {
+    public Ingredient() {
     }
 
 
-    protected Ingredientes(Parcel in) {
-        quantity = in.readInt();
+    protected Ingredient(Parcel in) {
+        quantity = in.readDouble();
         measure = in.readString();
         ingredient = in.readString();
     }
 
-    public static final Creator<Ingredientes> CREATOR = new Creator<Ingredientes>() {
+    public static final Creator<Ingredient> CREATOR = new Creator<Ingredient>() {
         @Override
-        public Ingredientes createFromParcel(Parcel in) {
-            return new Ingredientes(in);
+        public Ingredient createFromParcel(Parcel in) {
+            return new Ingredient(in);
         }
 
         @Override
-        public Ingredientes[] newArray(int size) {
-            return new Ingredientes[size];
+        public Ingredient[] newArray(int size) {
+            return new Ingredient[size];
         }
     };
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
@@ -67,7 +71,7 @@ public class Ingredientes implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(quantity);
+        dest.writeDouble(quantity);
         dest.writeString(measure);
         dest.writeString(ingredient);
     }
