@@ -20,7 +20,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorPrimaryLight">
 
             <ImageView
                 android:layout_marginRight="8dp"
@@ -33,12 +34,14 @@
                 android:clickable="true" />
 
             <TextView
-                android:id="@+id/tituloReceta"
                 android:layout_margin="8dp"
+                android:id="@+id/tituloReceta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="18sp"
                 tools:text="Titulo da Receta" />
 
         </LinearLayout>

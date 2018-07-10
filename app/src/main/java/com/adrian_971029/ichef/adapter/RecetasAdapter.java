@@ -75,6 +75,11 @@ public class RecetasAdapter extends ArrayAdapter<Recetas> {
             }
         });
 
+        holder.mTitulo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
 
 
         return convertView;
