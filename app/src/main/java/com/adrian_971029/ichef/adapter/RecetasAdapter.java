@@ -21,17 +21,17 @@ import java.util.List;
 
 public class RecetasAdapter extends ArrayAdapter<Recetas> {
 
-    private List<Recetas> mListMovie;
+    private List<Recetas> mListRecetas;
     private static final String RECETAS = "recetas";
 
     @Override
     public int getCount() {
-        return mListMovie.size();
+        return mListRecetas.size();
     }
 
     public RecetasAdapter(Context context, List<Recetas> objects) {
         super(context,0, objects);
-        mListMovie = objects;
+        mListRecetas = objects;
     }
 
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
