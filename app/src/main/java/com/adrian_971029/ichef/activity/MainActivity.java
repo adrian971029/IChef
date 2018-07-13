@@ -1,7 +1,10 @@
 package com.adrian_971029.ichef.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
@@ -24,6 +27,8 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.grid_view)
     GridView mGridView;
+    @BindView(R.id.tool_bar)
+    Toolbar mToolbar;
 
     private List<Recetas> mRecetas;
     private ArrayAdapter<Recetas> mAdapter;
@@ -34,9 +39,23 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mToolbar.setTitle(R.string.lbl_tool_bar_title);
         crearLayout();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        return super.onOptionsItemSelected(item);
     }
 
     private void crearLayout(){

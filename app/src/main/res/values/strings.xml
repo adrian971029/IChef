@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">iChef</string>
     <string name="lbl_ingredientes">Ingredientes:</string>
+    <string name="lbl_descricao">Descripção:</string>
+    <string name="tela_principal">Tela Principal</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="lbl_tool_bar_title">IChef</string>
 </resources>
