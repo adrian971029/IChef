@@ -5,4 +5,7 @@
     <string name="tela_principal">Tela Principal</string>
     <string name="favoritos">Favoritos</string>
     <string name="lbl_tool_bar_title">IChef</string>
+    <string name="sem_conexao">Sem conexão</string>
+    <string name="baixando_informacoes_das_recetas">Baixando informações das recetas</string>
+    <string name="nao_favoritos">Não tem recetas favoritas</string>
 </resources>
