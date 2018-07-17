@@ -8,4 +8,6 @@
     <string name="sem_conexao">Sem conexão</string>
     <string name="baixando_informacoes_das_recetas">Baixando informações das recetas</string>
     <string name="nao_favoritos">Não tem recetas favoritas</string>
+    <string name="uri_desconhecida">Uri Desconhecida</string>
+    <string name="error_inserir">Error ao inserir em</string>
 </resources>

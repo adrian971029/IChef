@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Ingredient implements Parcelable{
 
+    private String name;
     @SerializedName("quantity")
     @Expose
     private double quantity;
@@ -39,6 +40,14 @@ public class Ingredient implements Parcelable{
             return new Ingredient[size];
         }
     };
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public double getQuantity() {
         return quantity;
