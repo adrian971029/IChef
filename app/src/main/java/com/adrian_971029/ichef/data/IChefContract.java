@@ -17,21 +17,10 @@ public class IChefContract {
         public static final String TABLE_NAME_RECETAS = "recetas";
         public static final String COLUMN_RECETAS_ID = "recetas_id";
         public static final String COLUMN_RECETAS_NAME = "name";
+        public static final String COLUMN_RECETAS_INGREDIENT = "ingredient";
+        public static final String COLUMN_RECETAS_STEPS = "steps";
         public static final String COLUMN_RECETAS_SERVING = "serving";
         public static final String COLUMN_RECETAS_IMAGE = "image";
-
-        public static final String TABLE_NAME_INGREDIENTES = "ingredientes";
-        public static final String COLUMN_INGREDIENTES_RECETAS= "ingredientes_recetas";
-        public static final String COLUMN_INGREDIENTES_QUANTITY = "quantity";
-        public static final String COLUMN_INGREDIENTES_MEASURE = "measure";
-        public static final String COLUMN_INGREDIENTES_INGREDIENT = "ingredient";
-
-        public static final String TABLE_NAME_PASSOS = "passos";
-        public static final String COLUMN_PASSOS_ID = "passos_id";
-        public static final String COLUMN_PASSOS_SHORT_DESCRIPTIONS = "shortDescription";
-        public static final String COLUMN_PASSOS_DESCRIPTIONS = "description";
-        public static final String COLUMN_PASSOS_VIDEO_URL = "videoURL";
-        public static final String COLUMN_PASSOS_THUMBNAIL_URL = "thumbnailURL";
 
     }
 
