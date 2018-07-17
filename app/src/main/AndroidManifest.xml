@@ -22,6 +22,12 @@
         <activity android:name=".activity.DetailsActivity" />
         <activity android:name=".activity.VideoActivity"></activity>
 
+        <provider
+            android:authorities="com.adrian_971029.ichef"
+            android:name=".data.IChefContentProvider"
+            android:exported="false">
+        </provider>
+
     </application>
 
 </manifest>
