@@ -10,4 +10,6 @@
     <string name="nao_favoritos">Não tem recetas favoritas</string>
     <string name="uri_desconhecida">Uri Desconhecida</string>
     <string name="error_inserir">Error ao inserir em</string>
+    <string name="add_favoritos">Adicionado a favoritos</string>
+    <string name="delet_favoritos">Removido de favoritos</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.adrian_971029.ichef.activity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -11,12 +12,15 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.adrian_971029.ichef.R;
 import com.adrian_971029.ichef.adapter.RecetasAdapter;
+import com.adrian_971029.ichef.data.ContentProviderAccess;
 import com.adrian_971029.ichef.interfaces.ApiService;
 import com.adrian_971029.ichef.io.ApiAdapter;
 import com.adrian_971029.ichef.model.Recetas;
+import com.adrian_971029.ichef.task.RecetasTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +55,9 @@ public class MainActivity extends BaseActivity {
     TextView mTextMensagem;
 
     private List<Recetas> mRecetas;
+    private List<Recetas> mRecetasData;
+    private RecetasTask mRecetaTask;
+    private ContentProviderAccess providerAccess;
     private ArrayAdapter<Recetas> mAdapter;
     private int controlLayout;
 
@@ -68,10 +75,12 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.img_atualizar)
-    public void atualizar(View view) {
+    @Override
+    protected void onResume() {
+        super.onResume();
         switch (controlLayout) {
             case TELA_PRINCIPAL:
+                mTextMensagemSemFavoritos.setVisibility(View.GONE);
                 exibirProgreso(true);
                 exibirMensagemSemConexao(false);
                 mAdapter.clear();
@@ -79,6 +88,36 @@ public class MainActivity extends BaseActivity {
                 crearLayout();
                 break;
             case FAVORITOS:
+                mTextMensagemSemFavoritos.setVisibility(View.GONE);
+                exibirProgreso(false);
+                exibirMensagemSemConexao(false);
+                mAdapter.clear();
+                mRecetas.clear();
+                crearFavoritos();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @OnClick(R.id.img_atualizar)
+    public void atualizar(View view) {
+        switch (controlLayout) {
+            case TELA_PRINCIPAL:
+                mTextMensagemSemFavoritos.setVisibility(View.GONE);
+                exibirProgreso(true);
+                exibirMensagemSemConexao(false);
+                mAdapter.clear();
+                mRecetas.clear();
+                crearLayout();
+                break;
+            case FAVORITOS:
+                mTextMensagemSemFavoritos.setVisibility(View.GONE);
+                exibirProgreso(false);
+                exibirMensagemSemConexao(false);
+                mAdapter.clear();
+                mRecetas.clear();
+                crearFavoritos();
                 break;
             default:
                 break;
@@ -97,6 +136,7 @@ public class MainActivity extends BaseActivity {
 
         switch (id) {
             case R.id.menu_telaPrincipal:
+                mTextMensagemSemFavoritos.setVisibility(View.GONE);
                 exibirProgreso(true);
                 exibirMensagemSemConexao(false);
                 mAdapter.clear();
@@ -104,6 +144,12 @@ public class MainActivity extends BaseActivity {
                 crearLayout();
                 break;
             case R.id.menu_favorito:
+                mTextMensagemSemFavoritos.setVisibility(View.GONE);
+                exibirProgreso(false);
+                exibirMensagemSemConexao(false);
+                mAdapter.clear();
+                mRecetas.clear();
+                crearFavoritos();
                 break;
         }
 
@@ -126,6 +172,22 @@ public class MainActivity extends BaseActivity {
         else{
             exibirProgreso(false);
             exibirMensagemSemConexao(true);
+        }
+
+    }
+
+    private void crearFavoritos(){
+        controlLayout = FAVORITOS;
+        exibirProgreso(false);
+        if(mRecetasData == null){
+            mRecetasData = new ArrayList<Recetas>();
+        }
+        mAdapter = new RecetasAdapter(getApplicationContext(),mRecetasData);
+        mGridView.setAdapter(mAdapter);
+
+        if(mRecetaTask == null || mRecetaTask.getStatus() != AsyncTask.Status.RUNNING){
+            mRecetaTask = new RecetasTask(this,providerAccess,mRecetasData,mAdapter,mTextMensagemSemFavoritos);
+            mRecetaTask.execute();
         }
 
     }

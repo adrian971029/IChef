@@ -31,7 +31,7 @@ import com.google.android.exoplayer2.util.Util;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class VideoActivity extends AppCompatActivity {
+public class VideoActivity extends BaseActivity {
 
     private static final String STEPS = "steps";
 
