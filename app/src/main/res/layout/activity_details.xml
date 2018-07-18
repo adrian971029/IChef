@@ -47,18 +47,39 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btn_favorito"
-                android:padding="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="4dp"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Adicionar a Favoritos"
-                android:drawableBottom="@drawable/favorites"
-                android:background="@color/colorPrimaryLight" />
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_favorito"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_fav"
+                    android:drawableBottom="@drawable/favorites"
+                    android:background="@color/colorPrimaryLight" />
+
+                <Button
+                    android:id="@+id/btn_widget"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_widget"
+                    android:drawableBottom="@drawable/widget"
+                    android:background="@color/colorPrimaryLight" />
+
+            </LinearLayout>
 
             <android.support.v7.widget.CardView
                 android:layout_margin="8dp"

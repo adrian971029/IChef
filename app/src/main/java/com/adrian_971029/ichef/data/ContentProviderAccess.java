@@ -35,6 +35,47 @@ public class ContentProviderAccess {
 
     }
 
+    public static Recetas buscar(Context context, String id) {
+
+        IChefDbHelper iChefDbHelper = new IChefDbHelper(context);
+        final SQLiteDatabase db = iChefDbHelper.getReadableDatabase();
+
+        Recetas recetas;
+
+        String[] columns = {IChefContract.IChefEntry.COLUMN_RECETAS_ID,
+                IChefContract.IChefEntry.COLUMN_RECETAS_NAME,
+                IChefContract.IChefEntry.COLUMN_RECETAS_INGREDIENT,
+                IChefContract.IChefEntry.COLUMN_RECETAS_STEPS,
+                IChefContract.IChefEntry.COLUMN_RECETAS_SERVING,
+                IChefContract.IChefEntry.COLUMN_RECETAS_IMAGE,
+        };
+        String where = IChefContract.IChefEntry.COLUMN_RECETAS_ID + "=?";
+        String[] args = {id};
+
+        Cursor cursor = db.query(IChefContract.IChefEntry.TABLE_NAME_RECETAS,columns,where,args,null,null,null);
+        if (cursor.moveToFirst()) {
+
+            String ingredient  = cursor.getString(cursor.getColumnIndex(columns[2]));
+            String step  = cursor.getString(cursor.getColumnIndex(columns[3]));
+
+            ArrayList<Ingredient> listaIngredientes = new Gson().fromJson(ingredient, new TypeToken<ArrayList<Ingredient>>() {}.getType());
+            ArrayList<Step> listaPassos = new Gson().fromJson(step, new TypeToken<ArrayList<Step>>() {}.getType());
+
+            recetas = new Recetas();
+            recetas.setId(cursor.getInt(cursor.getColumnIndex(columns[0])));
+            recetas.setName(cursor.getString(cursor.getColumnIndex(columns[1])));
+            recetas.setIngredients(listaIngredientes);
+            recetas.setSteps(listaPassos);
+            recetas.setServings(cursor.getInt(cursor.getColumnIndex(columns[4])));
+            recetas.setImage(cursor.getString(cursor.getColumnIndex(columns[5])));
+
+            return recetas;
+
+        }
+
+        return null;
+    }
+
     public static List<Recetas> buscarTodos(Context context) {
 
         IChefDbHelper iChefDbHelper = new IChefDbHelper(context);

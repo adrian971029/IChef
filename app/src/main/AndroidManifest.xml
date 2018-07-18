@@ -20,13 +20,27 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.DetailsActivity" />
-        <activity android:name=".activity.VideoActivity"></activity>
+        <activity android:name=".activity.VideoActivity" />
 
         <provider
-            android:authorities="com.adrian_971029.ichef"
             android:name=".data.IChefContentProvider"
-            android:exported="false">
-        </provider>
+            android:authorities="com.adrian_971029.ichef"
+            android:exported="false"></provider>
+
+        <receiver android:name=".widget.IChefWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/ichef_widget_provider_info" />
+
+        </receiver>
+
+        <service
+            android:name=".widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
     </application>
 

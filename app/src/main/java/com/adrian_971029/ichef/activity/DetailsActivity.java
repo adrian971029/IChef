@@ -1,7 +1,12 @@
 package com.adrian_971029.ichef.activity;
 
+import android.app.Activity;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -22,6 +27,7 @@ import com.adrian_971029.ichef.model.Ingredient;
 import com.adrian_971029.ichef.model.Recetas;
 import com.adrian_971029.ichef.model.Step;
 import com.adrian_971029.ichef.utils.Constants;
+import com.adrian_971029.ichef.widget.IChefWidgetProvider;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -34,6 +40,7 @@ import butterknife.OnClick;
 public class DetailsActivity extends BaseActivity {
 
     private static final String RECETAS = "recetas";
+    private static final String RECETAS_ID = "recetas_id";
 
     @BindView(R.id.image_receta_details)
     ImageView imageViewRecetas;
@@ -47,6 +54,8 @@ public class DetailsActivity extends BaseActivity {
     ScrollView mScrollDetails;
     @BindView(R.id.btn_favorito)
     Button btnFavorito;
+    @BindView(R.id.btn_widget)
+    Button btnWidget;
 
     private Recetas recetas;
     private ArrayList<Ingredient> mArrayIngredients;
@@ -54,6 +63,8 @@ public class DetailsActivity extends BaseActivity {
     private List<Step> mSteps;
     private ArrayAdapter<Step> mAdapter;
     private boolean controlFavorito;
+    private boolean controlWidget;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +75,15 @@ public class DetailsActivity extends BaseActivity {
 
         recetas = new Recetas();
         recetas = getIntent().getExtras().getParcelable(RECETAS);
+        sharedPreferences = getSharedPreferences("widget", MODE_PRIVATE);
         controlFavorito = false;
+        controlWidget = false;
 
         defineImagenReceta();
         layoutIngredientes();
         layoutSteps();
         controlFavorito();
-
+        controlWidget();
 
     }
 
@@ -84,12 +97,14 @@ public class DetailsActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         controlFavorito();
+        controlWidget();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
         controlFavorito();
+        controlWidget();
     }
 
     @OnClick(R.id.btn_favorito)
@@ -101,11 +116,54 @@ public class DetailsActivity extends BaseActivity {
            Toast.makeText(this, R.string.add_favoritos,Toast.LENGTH_SHORT).show();
        }
        else {
-           if (!deletarCadastroBanco(String.valueOf(recetas.getId()))) return;
-           btnFavorito.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
-           guardandoFavorito(false);
-           Toast.makeText(this, R.string.delet_favoritos,Toast.LENGTH_SHORT).show();
+           if (((ColorDrawable)btnWidget.getBackground()).getColor() == getResources().getColor(R.color.colorPrimaryLight)) {
+               if (!deletarCadastroBanco(String.valueOf(recetas.getId()))) return;
+               btnFavorito.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+               guardandoFavorito(false);
+               Toast.makeText(this, R.string.delet_favoritos,Toast.LENGTH_SHORT).show();
+           } else {
+               if (!deletarCadastroBanco(String.valueOf(recetas.getId()))) return;
+               btnFavorito.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+               guardandoFavorito(false);
+               btnWidget.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+               guardandoFavorito(false);
+               Toast.makeText(this, R.string.msg_delet_fav_and_widget,Toast.LENGTH_SHORT).show();
+           }
        }
+    }
+
+    @OnClick(R.id.btn_widget)
+    public void widget(View view) {
+        if(((ColorDrawable)btnWidget.getBackground()).getColor() == getResources().getColor(R.color.colorPrimaryLight)) {
+            if(((ColorDrawable)btnFavorito.getBackground()).getColor() == getResources().getColor(R.color.colorPrimaryLight)) {
+                inserirCadastroBanco();
+                btnFavorito.setBackgroundColor(getResources().getColor(R.color.dorado));
+                btnWidget.setBackgroundColor(getResources().getColor(R.color.dorado));
+                guardandoFavorito(true);
+                guardandoWidget(true);
+                Toast.makeText(this, R.string.add_widget_favoritos,Toast.LENGTH_SHORT).show();
+            } else {
+                guardandoWidget(true);
+                btnWidget.setBackgroundColor(getResources().getColor(R.color.dorado));
+                Toast.makeText(this, R.string.msg_add_widget,Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            controlFavorito();
+            if(controlFavorito) {
+                guardandoWidget(false);
+                btnWidget.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+                Toast.makeText(this, R.string.msg_delet_widget,Toast.LENGTH_SHORT).show();
+            } else {
+                if (!deletarCadastroBanco(String.valueOf(recetas.getId()))) return;
+                btnFavorito.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+                btnWidget.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+                guardandoFavorito(false);
+                guardandoWidget(false);
+                Toast.makeText(this, R.string.msg_delet_fav_and_widget,Toast.LENGTH_SHORT).show();
+            }
+        }
+        atualizarWidget();
     }
 
     private void defineImagenReceta() {
@@ -186,6 +244,14 @@ public class DetailsActivity extends BaseActivity {
         editor.apply();
     }
 
+    private void guardandoWidget(boolean guardarWidget){
+        if(guardarWidget){
+            sharedPreferences.edit().putString(RECETAS_ID, String.valueOf(recetas.getId())).apply();
+        } else {
+            sharedPreferences.edit().putString(RECETAS_ID, null).apply();
+        }
+    }
+
     private void controlFavorito() {
         if(sharedPrefs != null) {
             controlFavorito = sharedPrefs.getBoolean(String.valueOf(recetas.getId()),false);
@@ -197,6 +263,34 @@ public class DetailsActivity extends BaseActivity {
         else {
             btnFavorito.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
         }
+    }
+
+    private void controlWidget() {
+        if (sharedPreferences != null) {
+            if (sharedPreferences.getString(RECETAS_ID,null) != null){
+                if (sharedPreferences.getString(RECETAS_ID,null).equals(String.valueOf(recetas.getId()))) {
+                    controlWidget = true;
+                }
+                else {
+                    controlWidget = false;
+                }
+            }
+        }
+
+        if(controlWidget) {
+            btnWidget.setBackgroundColor(getResources().getColor(R.color.dorado));
+        }
+        else {
+            btnWidget.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+        }
+    }
+
+    private void atualizarWidget() {
+        Context context = getApplicationContext();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        ComponentName thisWidget = new ComponentName(context, IChefWidgetProvider.class);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list_item_widget);
     }
 
 }
