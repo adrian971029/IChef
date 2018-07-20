@@ -1,5 +1,6 @@
 package com.adrian_971029.ichef.activity;
 
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -78,6 +79,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        controlaNumColumnsGridLayout();
         switch (controlLayout) {
             case TELA_PRINCIPAL:
                 mTextMensagemSemFavoritos.setVisibility(View.GONE);
@@ -154,6 +156,14 @@ public class MainActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void controlaNumColumnsGridLayout() {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            mGridView.setNumColumns(2);
+        } else {
+            mGridView.setNumColumns(1);
+        }
     }
 
     private void crearLayout(){

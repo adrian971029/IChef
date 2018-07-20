@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.adrian_971029.ichef.R;
 import com.adrian_971029.ichef.activity.DetailsActivity;
@@ -53,18 +54,26 @@ public class StepsAdapter extends ArrayAdapter<Step>{
         holder.mNumberSteps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(), VideoActivity.class);
-                i.putExtra(STEPS,steps);
-                getContext().startActivity(i);
+                if (steps.getVideoURL().equals("")){
+                    Toast.makeText(getContext(), R.string.msg_nao_video,Toast.LENGTH_SHORT).show();
+                } else{
+                    Intent i = new Intent(getContext(), VideoActivity.class);
+                    i.putExtra(STEPS,steps);
+                    getContext().startActivity(i);
+                }
             }
         });
 
         holder.mDescriptionsSteps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(), VideoActivity.class);
-                i.putExtra(STEPS,steps);
-                getContext().startActivity(i);
+                if (steps.getVideoURL().equals("")){
+                    Toast.makeText(getContext(), R.string.msg_nao_video,Toast.LENGTH_SHORT).show();
+                } else{
+                    Intent i = new Intent(getContext(), VideoActivity.class);
+                    i.putExtra(STEPS,steps);
+                    getContext().startActivity(i);
+                }
             }
         });
 

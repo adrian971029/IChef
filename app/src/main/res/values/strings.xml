@@ -19,4 +19,5 @@
     <string name="msg_delet_widget">Removido de Widget</string>
     <string name="add_widget_favoritos">Adicionado a Widget e Favoritos</string>
     <string name="msg_delet_fav_and_widget">Removindo widget e favoritos</string>
+    <string name="msg_nao_video">Não tem video de este passo</string>
 </resources>

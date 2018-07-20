@@ -2,14 +2,12 @@ package com.adrian_971029.ichef;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.SystemClock;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.adrian_971029.ichef.activity.DetailsActivity;
-import com.adrian_971029.ichef.model.Recetas;
-import com.adrian_971029.ichef.utils.TestUtils;
+import com.adrian_971029.ichef.utils.TestUtilsDetails;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,8 +39,7 @@ public class DetailsActivityTest {
                             .getTargetContext();
                     Intent i = new Intent(targetContext, DetailsActivity.class);
                     try {
-                        SystemClock.sleep(2000);
-                        i.putExtra(RECETAS, TestUtils.resultadoRecetas().get(0));
+                        i.putExtra(RECETAS, TestUtilsDetails.resultadoRecetas().get(0));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

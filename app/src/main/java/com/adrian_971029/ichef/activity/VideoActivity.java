@@ -52,6 +52,8 @@ public class VideoActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
+        iniciaFullScreen();
+
         steps = new Step();
         steps = getIntent().getExtras().getParcelable(STEPS);
 
@@ -82,6 +84,21 @@ public class VideoActivity extends BaseActivity {
                 mediaDataSourceFactory, extractorsFactory, null, null);
 
         simpleExoPlayer.prepare(mediaSource);
+    }
+
+    private void iniciaFullScreen() {
+
+        mFullScreen = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen) {
+            public void onBackPressed() {
+                if (isFullScreen)
+                    finish();
+                super.onBackPressed();
+            }
+        };
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            openFullScreen();
+        }
     }
 
     private void openFullScreen() {
