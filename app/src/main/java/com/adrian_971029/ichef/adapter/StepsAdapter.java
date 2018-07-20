@@ -8,13 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adrian_971029.ichef.R;
-import com.adrian_971029.ichef.activity.DetailsActivity;
 import com.adrian_971029.ichef.activity.VideoActivity;
 import com.adrian_971029.ichef.model.Step;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class StepsAdapter extends ArrayAdapter<Step>{
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_steps,null);
             holder = new StepsAdapter.ViewHolder();
+            holder.mImagStep = (ImageView) convertView.findViewById(R.id.img_step);
             holder.mNumberSteps = (TextView) convertView.findViewById(R.id.tv_numberSteps);
             holder.mDescriptionsSteps = (TextView)convertView.findViewById(R.id.tv_descriptionsSteps);
             convertView.setTag(holder);
@@ -48,8 +50,29 @@ public class StepsAdapter extends ArrayAdapter<Step>{
             holder = (StepsAdapter.ViewHolder)convertView.getTag();
         }
 
+        if(!steps.getThumbnailURL().equals("")){
+            Glide.with(getContext()).load(steps.getThumbnailURL()).thumbnail(0.1f).into(holder.mImagStep);
+        } else if( !steps.getVideoURL().equals("")) {
+            Glide.with(getContext()).load(steps.getVideoURL()).thumbnail(0.1f).into(holder.mImagStep);
+        } else {
+            Glide.with(getContext()).load(R.drawable.steps).thumbnail(0.1f).into(holder.mImagStep);
+        }
+
         holder.mNumberSteps.setText("Passo " + steps.getId());
         holder.mDescriptionsSteps.setText(steps.getShortDescription());
+
+        holder.mImagStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (steps.getVideoURL().equals("")){
+                    Toast.makeText(getContext(), R.string.msg_nao_video,Toast.LENGTH_SHORT).show();
+                } else{
+                    Intent i = new Intent(getContext(), VideoActivity.class);
+                    i.putExtra(STEPS,steps);
+                    getContext().startActivity(i);
+                }
+            }
+        });
 
         holder.mNumberSteps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +106,7 @@ public class StepsAdapter extends ArrayAdapter<Step>{
     }
 
     static class ViewHolder{
+        ImageView mImagStep;
         TextView mNumberSteps;
         TextView mDescriptionsSteps;
     }

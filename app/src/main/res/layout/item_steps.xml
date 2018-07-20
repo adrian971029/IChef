@@ -20,31 +20,46 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:background="@color/colorPrimaryLight">
 
-            <TextView
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="4dp"
-                android:id="@+id/tv_numberSteps"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Passo:"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="16sp"/>
+           <ImageView
+               android:scaleType="centerCrop"
+               android:layout_width="60dp"
+               android:layout_height="60dp"
+               android:id="@+id/img_step"
+               android:layout_margin="8dp"/>
 
-            <TextView
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="4dp"
-                android:id="@+id/tv_descriptionsSteps"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Descrição dos passos"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="12sp"/>
+                android:orientation="vertical"
+                android:background="@color/colorPrimaryLight">
+
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:id="@+id/tv_numberSteps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Passo:"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:id="@+id/tv_descriptionsSteps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Descrição dos passos"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

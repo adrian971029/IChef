@@ -2,7 +2,6 @@ package com.adrian_971029.ichef.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,9 +16,8 @@ import com.adrian_971029.ichef.R;
 import com.adrian_971029.ichef.activity.DetailsActivity;
 import com.adrian_971029.ichef.model.Recetas;
 import com.adrian_971029.ichef.utils.Constants;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
-import java.io.File;
 import java.util.List;
 
 public class RecetasAdapter extends ArrayAdapter<Recetas> {
@@ -53,24 +51,24 @@ public class RecetasAdapter extends ArrayAdapter<Recetas> {
         }
 
         if(!recetas.getImage().equals("")){
-            Picasso.with(getContext()).load(recetas.getImage()).into(holder.imgCapa);
+            Glide.with(getContext()).load(recetas.getImage()).into(holder.imgCapa);
         } else {
             switch (recetas.getName()) {
                 case Constants.NUTELLA_PIE:
                     Uri path = Uri.parse("android.resource://com.adrian_971029.ichef/" + R.drawable.nutella_pie);
-                    Picasso.with(getContext()).load(path).config(Bitmap.Config.RGB_565).fit().centerCrop().into(holder.imgCapa);
+                    Glide.with(getContext()).load(path).into(holder.imgCapa);
                     break;
                 case Constants.BROWNIES:
                     Uri path1 = Uri.parse("android.resource://com.adrian_971029.ichef/" + R.drawable.brownies);
-                    Picasso.with(getContext()).load(path1).config(Bitmap.Config.RGB_565).fit().centerCrop().into(holder.imgCapa);
+                    Glide.with(getContext()).load(path1).into(holder.imgCapa);
                     break;
                 case Constants.YELLOW_CAKE:
                     Uri path2 = Uri.parse("android.resource://com.adrian_971029.ichef/" + R.drawable.yellow_cake);
-                    Picasso.with(getContext()).load(path2).config(Bitmap.Config.RGB_565).fit().centerCrop().into(holder.imgCapa);
+                    Glide.with(getContext()).load(path2).into(holder.imgCapa);
                     break;
                 case Constants.CHEESECAKE:
                     Uri path3 = Uri.parse("android.resource://com.adrian_971029.ichef/" + R.drawable.cheesecake);
-                    Picasso.with(getContext()).load(path3).config(Bitmap.Config.RGB_565).fit().centerCrop().into(holder.imgCapa);
+                    Glide.with(getContext()).load(path3).into(holder.imgCapa);
                     break;
                 default:
                     break;
