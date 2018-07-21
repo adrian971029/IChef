@@ -13,8 +13,15 @@ import android.widget.TextView;
 import com.adrian_971029.ichef.R;
 import com.adrian_971029.ichef.utils.Constants;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ImageRecetasFragment extends Fragment {
 
+    @BindView(R.id.image_receta_details)
+    ImageView mImageRecetas;
+    @BindView(R.id.tv_recetas_name)
+    TextView mTextViewRecetas;
     private String name;
 
     public ImageRecetasFragment() {
@@ -25,8 +32,7 @@ public class ImageRecetasFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_image_recetas,container,false);
 
-        ImageView mImageRecetas = (ImageView) rootView.findViewById(R.id.image_receta_details);
-        TextView mTextViewRecetas  = (TextView) rootView.findViewById(R.id.tv_recetas_name);
+        ButterKnife.bind(this,rootView);
 
         switch (name) {
             case Constants.NUTELLA_PIE:
