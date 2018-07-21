@@ -9,31 +9,10 @@
     android:orientation="vertical">
 
     <FrameLayout
+        android:id="@+id/image_recetas_container"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_gravity="center_horizontal">
-
-        <ImageView
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            android:id = "@+id/image_receta_details"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_gravity="center_horizontal"/>
-
-        <TextView
-            android:paddingLeft="8dp"
-            android:paddingTop="195dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:id="@+id/tv_recetas_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:textColor="@color/colorAccent"
-            android:textSize="20sp"
-            tools:text="Nome da receta" />
-
     </FrameLayout>
 
     <ScrollView

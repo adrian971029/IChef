@@ -9,4 +9,6 @@
     <color name="colorSecondaryText">#757575</color>
     <color name="colorDivider">#BDBDBD</color>
     <color name="dorado">#CCFA11</color>
+    <color name="branco">#FFFFFF</color>
+    <color name="fundo_txt_transparente">#a4000000</color>
 </resources>

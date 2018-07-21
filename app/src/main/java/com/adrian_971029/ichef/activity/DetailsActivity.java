@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.adrian_971029.ichef.R;
 import com.adrian_971029.ichef.adapter.StepsAdapter;
 import com.adrian_971029.ichef.data.ContentProviderAccess;
+import com.adrian_971029.ichef.fragment.ImageRecetasFragment;
 import com.adrian_971029.ichef.model.Ingredient;
 import com.adrian_971029.ichef.model.Recetas;
 import com.adrian_971029.ichef.model.Step;
@@ -42,12 +44,8 @@ public class DetailsActivity extends BaseActivity {
     private static final String RECETAS = "recetas";
     private static final String RECETAS_ID = "recetas_id";
 
-    @BindView(R.id.image_receta_details)
-    ImageView imageViewRecetas;
     @BindView(R.id.tv_ingredients)
     TextView tvIngredients;
-    @BindView(R.id.tv_recetas_name)
-    TextView tvRecetasName;
     @BindView(R.id.listSteps)
     ListView mListSteps;
     @BindView(R.id.scroll_details)
@@ -79,7 +77,7 @@ public class DetailsActivity extends BaseActivity {
         controlFavorito = false;
         controlWidget = false;
 
-        defineImagenReceta();
+        criarFragmentImageRecetas();
         layoutIngredientes();
         layoutSteps();
         controlFavorito();
@@ -105,6 +103,17 @@ public class DetailsActivity extends BaseActivity {
         super.onRestart();
         controlFavorito();
         controlWidget();
+    }
+
+    private void criarFragmentImageRecetas() {
+        ImageRecetasFragment imageRecetasFragment = new ImageRecetasFragment();
+        imageRecetasFragment.setName(recetas.getName());
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.beginTransaction()
+                .add(R.id.image_recetas_container, imageRecetasFragment)
+                .commit();
     }
 
     @OnClick(R.id.btn_favorito)
@@ -164,26 +173,6 @@ public class DetailsActivity extends BaseActivity {
             }
         }
         atualizarWidget();
-    }
-
-    private void defineImagenReceta() {
-        switch (recetas.getName()) {
-            case Constants.NUTELLA_PIE:
-                imageViewRecetas.setImageResource(R.drawable.nutella_pie);
-                break;
-            case Constants.BROWNIES:
-                imageViewRecetas.setImageResource(R.drawable.brownies);
-                break;
-            case Constants.YELLOW_CAKE:
-                imageViewRecetas.setImageResource(R.drawable.yellow_cake);
-                break;
-            case Constants.CHEESECAKE:
-                imageViewRecetas.setImageResource(R.drawable.cheesecake);
-                break;
-            default:
-                break;
-        }
-        tvRecetasName.setText(recetas.getName().toString());
     }
 
     private void layoutIngredientes() {
