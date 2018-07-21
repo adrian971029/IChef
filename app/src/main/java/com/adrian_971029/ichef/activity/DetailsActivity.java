@@ -26,6 +26,7 @@ import com.adrian_971029.ichef.adapter.StepsAdapter;
 import com.adrian_971029.ichef.data.ContentProviderAccess;
 import com.adrian_971029.ichef.fragment.BtnFragments;
 import com.adrian_971029.ichef.fragment.ImageRecetasFragment;
+import com.adrian_971029.ichef.fragment.IngredientFragment;
 import com.adrian_971029.ichef.model.Ingredient;
 import com.adrian_971029.ichef.model.Recetas;
 import com.adrian_971029.ichef.model.Step;
@@ -38,21 +39,17 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class DetailsActivity extends BaseActivity {
 
     private static final String RECETAS = "recetas";
 
-    @BindView(R.id.tv_ingredients)
-    TextView tvIngredients;
     @BindView(R.id.listSteps)
     ListView mListSteps;
     @BindView(R.id.scroll_details)
     ScrollView mScrollDetails;
 
     private Recetas recetas;
-    private ArrayList<Ingredient> mArrayIngredients;
     private ArrayList<Step> mArraySteps;
     private List<Step> mSteps;
     private ArrayAdapter<Step> mAdapter;
@@ -68,7 +65,6 @@ public class DetailsActivity extends BaseActivity {
         recetas = getIntent().getExtras().getParcelable(RECETAS);
 
         criarFragments();
-        layoutIngredientes();
         layoutSteps();
 
     }
@@ -86,6 +82,9 @@ public class DetailsActivity extends BaseActivity {
         BtnFragments btnFragments = new BtnFragments();
         btnFragments.setRecetas(recetas);
 
+        IngredientFragment ingredientFragment = new IngredientFragment();
+        ingredientFragment.setRecetas(recetas);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         fragmentManager.beginTransaction()
@@ -96,16 +95,10 @@ public class DetailsActivity extends BaseActivity {
                 .add(R.id.btn_container, btnFragments)
                 .commit();
 
-    }
+        fragmentManager.beginTransaction()
+                .add(R.id.ingredient_container, ingredientFragment)
+                .commit();
 
-    private void layoutIngredientes() {
-        mArrayIngredients = recetas.getIngredients();
-        if(mArrayIngredients == null) {
-            mArrayIngredients = new ArrayList<Ingredient>();
-        }
-        for (int i=0; i<mArrayIngredients.size(); i++){
-            tvIngredients.append("- " + mArrayIngredients.get(i).getIngredient() + " (" + mArrayIngredients.get(i).getQuantity() + " " + mArrayIngredients.get(i).getMeasure() + ") \n");
-        }
     }
 
     private void layoutSteps() {
