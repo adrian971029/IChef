@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.adrian_971029.ichef.utils.NonScrollListView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listSteps"
+    android:focusedByDefault="false"
+    android:focusable="false"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+</com.adrian_971029.ichef.utils.NonScrollListView>
