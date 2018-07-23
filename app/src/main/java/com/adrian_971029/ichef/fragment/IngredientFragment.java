@@ -20,6 +20,8 @@ import butterknife.ButterKnife;
 
 public class IngredientFragment extends Fragment {
 
+    public static final String RECETAS_INGREDIENTES = "recetas_ingredientes";
+
     @BindView(R.id.tv_ingredients)
     TextView tvIngredients;
     private ArrayList<Ingredient> mArrayIngredients;
@@ -43,7 +45,13 @@ public class IngredientFragment extends Fragment {
 
         ButterKnife.bind(this,rootView);
 
-        layoutIngredientes();
+        if (savedInstanceState != null) {
+            recetas = savedInstanceState.getParcelable(RECETAS_INGREDIENTES);
+        }
+
+        if (recetas != null) {
+            layoutIngredientes();
+        }
 
         return rootView;
     }
@@ -56,6 +64,11 @@ public class IngredientFragment extends Fragment {
         for (int i=0; i<mArrayIngredients.size(); i++){
             tvIngredients.append("- " + mArrayIngredients.get(i).getIngredient() + " (" + mArrayIngredients.get(i).getQuantity() + " " + mArrayIngredients.get(i).getMeasure() + ") \n");
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelable(RECETAS_INGREDIENTES, recetas);
     }
 
 }

@@ -18,6 +18,8 @@ import butterknife.ButterKnife;
 
 public class ImageRecetasFragment extends Fragment {
 
+    public static final String RECETAS_NAME = "recetas_name";
+
     @BindView(R.id.image_receta_details)
     ImageView mImageRecetas;
     @BindView(R.id.tv_recetas_name)
@@ -42,25 +44,37 @@ public class ImageRecetasFragment extends Fragment {
 
         ButterKnife.bind(this,rootView);
 
-        switch (name) {
-            case Constants.NUTELLA_PIE:
-                mImageRecetas.setImageResource(R.drawable.nutella_pie);
-                break;
-            case Constants.BROWNIES:
-                mImageRecetas.setImageResource(R.drawable.brownies);
-                break;
-            case Constants.YELLOW_CAKE:
-                mImageRecetas.setImageResource(R.drawable.yellow_cake);
-                break;
-            case Constants.CHEESECAKE:
-                mImageRecetas.setImageResource(R.drawable.cheesecake);
-                break;
-            default:
-                break;
+        if (savedInstanceState != null) {
+            name = savedInstanceState.getString(RECETAS_NAME);
         }
-        mTextViewRecetas.setText(name);
+
+        if (name != null) {
+
+            switch (name) {
+                case Constants.NUTELLA_PIE:
+                    mImageRecetas.setImageResource(R.drawable.nutella_pie);
+                    break;
+                case Constants.BROWNIES:
+                    mImageRecetas.setImageResource(R.drawable.brownies);
+                    break;
+                case Constants.YELLOW_CAKE:
+                    mImageRecetas.setImageResource(R.drawable.yellow_cake);
+                    break;
+                case Constants.CHEESECAKE:
+                    mImageRecetas.setImageResource(R.drawable.cheesecake);
+                    break;
+                default:
+                    break;
+            }
+            mTextViewRecetas.setText(name);
+
+        }
 
         return rootView;
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(RECETAS_NAME,name);
+    }
 }

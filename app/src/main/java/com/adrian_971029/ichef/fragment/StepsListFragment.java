@@ -23,6 +23,8 @@ import butterknife.ButterKnife;
 
 public class StepsListFragment extends Fragment {
 
+    private static final String RECETAS_STEPS = "recetas_steps";
+
     @BindView(R.id.listSteps)
     ListView mListSteps;
     private ArrayList<Step> mArraySteps;
@@ -48,6 +50,10 @@ public class StepsListFragment extends Fragment {
 
         ButterKnife.bind(this,rootView);
 
+        if (savedInstanceState != null) {
+            recetas = savedInstanceState.getParcelable(RECETAS_STEPS);
+        }
+
         layoutSteps();
 
         return rootView;
@@ -70,4 +76,8 @@ public class StepsListFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelable(RECETAS_STEPS,recetas);
+    }
 }

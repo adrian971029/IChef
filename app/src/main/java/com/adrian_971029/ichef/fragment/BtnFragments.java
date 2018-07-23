@@ -30,6 +30,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class BtnFragments extends Fragment {
 
     private static final String RECETAS_ID = "recetas_id";
+    private static final String RECETAS_BTN = "recetas_btn";
 
     @BindView(R.id.btn_favorito)
     Button btnFavorito;
@@ -58,6 +59,11 @@ public class BtnFragments extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_btn_favorites_and_widget,container,false);
 
         ButterKnife.bind(this,rootView);
+
+        if (savedInstanceState != null) {
+            recetas = savedInstanceState.getParcelable(RECETAS_BTN);
+        }
+
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         sharedPreferences = getContext().getSharedPreferences("widget", MODE_PRIVATE);
 
@@ -212,4 +218,8 @@ public class BtnFragments extends Fragment {
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list_item_widget);
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelable(RECETAS_BTN,recetas);
+    }
 }
