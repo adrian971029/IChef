@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.adrian_971029.ichef.R;
+import com.adrian_971029.ichef.activity.DetailsActivity;
 import com.adrian_971029.ichef.adapter.StepsAdapter;
 import com.adrian_971029.ichef.model.Recetas;
 import com.adrian_971029.ichef.model.Step;
@@ -31,6 +32,8 @@ public class StepsListFragment extends Fragment {
     private List<Step> mSteps;
     private ArrayAdapter<Step> mAdapter;
     private Recetas recetas;
+    private DetailsActivity detailsActivity;
+    private boolean tablet;
 
     public StepsListFragment() {
     }
@@ -41,6 +44,22 @@ public class StepsListFragment extends Fragment {
 
     public void setRecetas(Recetas recetas) {
         this.recetas = recetas;
+    }
+
+    public DetailsActivity getDetailsActivity() {
+        return detailsActivity;
+    }
+
+    public void setDetailsActivity(DetailsActivity detailsActivity) {
+        this.detailsActivity = detailsActivity;
+    }
+
+    public boolean isTablet() {
+        return tablet;
+    }
+
+    public void setTablet(boolean tablet) {
+        this.tablet = tablet;
     }
 
     @Nullable
@@ -54,7 +73,9 @@ public class StepsListFragment extends Fragment {
             recetas = savedInstanceState.getParcelable(RECETAS_STEPS);
         }
 
-        layoutSteps();
+        if (recetas != null) {
+            layoutSteps();
+        }
 
         return rootView;
     }
@@ -63,7 +84,7 @@ public class StepsListFragment extends Fragment {
         if(mSteps == null){
             mSteps = new ArrayList<Step>();
         }
-        mAdapter = new StepsAdapter(getContext(),mSteps);
+        mAdapter = new StepsAdapter(getContext(),mSteps,isTablet(),getDetailsActivity());
         mListSteps.setAdapter(mAdapter);
         if(mArraySteps == null) {
             mArraySteps = new ArrayList<Step>();

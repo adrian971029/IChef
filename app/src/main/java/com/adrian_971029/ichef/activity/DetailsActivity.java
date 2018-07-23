@@ -1,11 +1,13 @@
 package com.adrian_971029.ichef.activity;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 
 import com.adrian_971029.ichef.R;
+import com.adrian_971029.ichef.adapter.StepsAdapter;
 import com.adrian_971029.ichef.fragment.BtnFragments;
 import com.adrian_971029.ichef.fragment.ImageRecetasFragment;
 import com.adrian_971029.ichef.fragment.IngredientFragment;
@@ -19,10 +21,12 @@ public class DetailsActivity extends BaseActivity {
 
     private static final String RECETAS = "recetas";
 
+    @Nullable
     @BindView(R.id.scroll_details)
     ScrollView mScrollDetails;
 
     private Recetas recetas;
+    private boolean mTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,13 @@ public class DetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_details);
 
         ButterKnife.bind(this);
+
+
+        if (findViewById(R.id.tablet_linear_layout) != null) {
+            mTwoPane = true;
+        } else {
+            mTwoPane = false;
+        }
 
         recetas = new Recetas();
         recetas = getIntent().getExtras().getParcelable(RECETAS);
@@ -41,7 +52,9 @@ public class DetailsActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        focaScrollNoComenzo();
+        if (findViewById(R.id.scroll_details) != null) {
+            focaScrollNoComenzo();
+        }
     }
 
     private void criarFragments() {
@@ -56,6 +69,8 @@ public class DetailsActivity extends BaseActivity {
 
         StepsListFragment stepsListFragment = new StepsListFragment();
         stepsListFragment.setRecetas(recetas);
+        stepsListFragment.setDetailsActivity(this);
+        stepsListFragment.setTablet(mTwoPane);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -67,9 +82,11 @@ public class DetailsActivity extends BaseActivity {
                 .add(R.id.btn_container, btnFragments)
                 .commit();
 
-        fragmentManager.beginTransaction()
-                .add(R.id.ingredient_container, ingredientFragment)
-                .commit();
+        if (!StepsAdapter.isStepVisible()) {
+            fragmentManager.beginTransaction()
+                    .add(R.id.ingredient_container, ingredientFragment)
+                    .commit();
+        }
 
         fragmentManager.beginTransaction()
                 .add(R.id.steps_list_container, stepsListFragment)
@@ -82,4 +99,11 @@ public class DetailsActivity extends BaseActivity {
         mScrollDetails.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (mTwoPane) {
+            StepsAdapter.setStepVisible(false);
+        }
+    }
 }
