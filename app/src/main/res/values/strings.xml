@@ -20,4 +20,14 @@
     <string name="add_widget_favoritos">Adicionado a Widget e Favoritos</string>
     <string name="msg_delet_fav_and_widget">Removindo widget e favoritos</string>
     <string name="msg_nao_video">Não tem video de este passo</string>
+    <string name="contDes_sem_conexao_internet">Sem conexão a internet</string>
+    <string name="contDesc_atualizar">Atualizar, intentar novamente a conexão</string>
+    <string name="contDesc_play">Play</string>
+    <string name="contDesc_pause">Pause</string>
+    <string name="contDesc_receta">Receta de cocina</string>
+    <string name="contDesc_video_indisponivel">Video indisponivél</string>
+    <string name="contDesc_receta_desejada">Receta desejada</string>
+    <string name="contDesc_thumbnail">Thumbnail do passo</string>
+    <string name="contDesc_btn_add_favorito">Botão para adicionar favorito</string>
+    <string name="contDesc_btn_add_widget">Botão para adicionar widget</string>
 </resources>

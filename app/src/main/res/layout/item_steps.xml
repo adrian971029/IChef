@@ -29,7 +29,8 @@
                android:layout_width="60dp"
                android:layout_height="60dp"
                android:id="@+id/img_step"
-               android:layout_margin="8dp"/>
+               android:layout_margin="8dp"
+               android:contentDescription="@string/contDesc_thumbnail"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"

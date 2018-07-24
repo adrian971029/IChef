@@ -17,7 +17,8 @@
         android:layout_weight="1"
         android:text="@string/add_fav"
         android:drawableBottom="@drawable/favorites"
-        android:background="@color/colorPrimaryLight" />
+        android:background="@color/colorPrimaryLight"
+        android:contentDescription="@string/contDesc_btn_add_favorito"/>
 
     <Button
         android:id="@+id/btn_widget"
@@ -31,6 +32,7 @@
         android:layout_weight="1"
         android:text="@string/add_widget"
         android:drawableBottom="@drawable/widget"
-        android:background="@color/colorPrimaryLight" />
+        android:background="@color/colorPrimaryLight"
+        android:contentDescription="@string/contDesc_btn_add_widget"/>
 
 </LinearLayout>

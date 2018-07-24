@@ -33,7 +33,8 @@
                 android:layout_height="300dp"
                 android:layout_gravity="center"
                 android:focusable="true"
-                android:clickable="true" />
+                android:clickable="true"
+                android:contentDescription="@string/contDesc_receta_desejada"/>
 
             <TextView
                 android:layout_margin="8dp"

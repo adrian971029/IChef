@@ -52,7 +52,8 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:src="@drawable/sem_wifi"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:contentDescription="@string/contDes_sem_conexao_internet"/>
 
 
     <TextView
@@ -89,6 +90,7 @@
         android:layout_below="@id/tv_semConexao"
         android:src="@drawable/btn_atualizar"
         android:visibility="gone"
-        android:onClick="atualizar"/>
+        android:onClick="atualizar"
+        android:contentDescription="@string/contDesc_atualizar"/>
 
 </RelativeLayout>
