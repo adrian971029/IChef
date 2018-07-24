@@ -76,24 +76,20 @@ public class StepsAdapter extends ArrayAdapter<Step>{
         holder.layoutSteps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (steps.getVideoURL().equals("")){
-                    Toast.makeText(getContext(), R.string.msg_nao_video,Toast.LENGTH_SHORT).show();
-                } else{
-                    if (isTablet) {
-                        VideoFragment videoFragment = new VideoFragment();
-                        videoFragment.setSteps(steps);
+                if (isTablet) {
+                    VideoFragment videoFragment = new VideoFragment();
+                    videoFragment.setSteps(steps);
 
-                        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                    FragmentManager fragmentManager = activity.getSupportFragmentManager();
 
-                        fragmentManager.beginTransaction()
-                                .replace(R.id.ingredient_container, videoFragment)
-                                .commit();
-                        stepVisible = true;
-                    } else {
-                        Intent i = new Intent(getContext(), VideoActivity.class);
-                        i.putExtra(STEPS,steps);
-                        getContext().startActivity(i);
-                    }
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.ingredient_container, videoFragment)
+                            .commit();
+                    stepVisible = true;
+                } else {
+                    Intent i = new Intent(getContext(), VideoActivity.class);
+                    i.putExtra(STEPS,steps);
+                    getContext().startActivity(i);
                 }
             }
         });

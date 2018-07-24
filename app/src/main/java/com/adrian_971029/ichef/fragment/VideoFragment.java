@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adrian_971029.ichef.R;
@@ -44,6 +45,8 @@ public class VideoFragment extends Fragment {
     SimpleExoPlayerView exoVideo;
     @BindView(R.id.tv_descriptionsVideo)
     TextView tvDescriptionVideo;
+    @BindView(R.id.video_indisponivel)
+    ImageView videoIndisponivel;
     private SimpleExoPlayer simpleExoPlayer;
     private Dialog mFullScreen;
     private boolean isFullScreen;
@@ -72,8 +75,17 @@ public class VideoFragment extends Fragment {
         }
 
         if (steps != null) {
-            iniciaFullScreen();
-            tvDescriptionVideo.setText(steps.getDescription().toString());
+            if (steps.getVideoURL().equals("")){
+                mFrame.setVisibility(View.GONE);
+                videoIndisponivel.setVisibility(View.VISIBLE);
+                tvDescriptionVideo.setText(steps.getDescription().toString());
+            } else {
+                videoIndisponivel.setVisibility(View.GONE);
+                mFrame.setVisibility(View.VISIBLE);
+                iniciaFullScreen();
+                tvDescriptionVideo.setText(steps.getDescription().toString());
+            }
+
         }
 
         return rootView;
@@ -140,11 +152,15 @@ public class VideoFragment extends Fragment {
         super.onConfigurationChanged(newConfig);
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             if (!isFullScreen) {
-                openFullScreen();
+                if(!steps.getVideoURL().equals("")) {
+                    openFullScreen();
+                }
             }
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             if (isFullScreen) {
-                closeFullScreen();
+                if(!steps.getVideoURL().equals("")) {
+                    closeFullScreen();
+                }
             }
         }
     }
@@ -153,7 +169,7 @@ public class VideoFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if ((Util.SDK_INT <= 23 || simpleExoPlayer == null)) {
-            if (steps.getVideoURL() != null) {
+            if (steps.getVideoURL() != null || !steps.getVideoURL().equals("")) {
                 iniciaVideo();
             } else {
                 exoVideo.setVisibility(View.GONE);
