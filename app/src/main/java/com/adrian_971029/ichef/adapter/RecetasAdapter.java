@@ -20,6 +20,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class RecetasAdapter extends ArrayAdapter<Recetas> {
 
     private List<Recetas> mListRecetas;
@@ -41,9 +44,7 @@ public class RecetasAdapter extends ArrayAdapter<Recetas> {
         ViewHolder holder;
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_recetas,null);
-            holder = new ViewHolder();
-            holder.imgCapa = (ImageView)convertView.findViewById(R.id.image_receta);
-            holder.mTitulo = (TextView)convertView.findViewById(R.id.tituloReceta);
+            holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         }
         else{
@@ -101,8 +102,15 @@ public class RecetasAdapter extends ArrayAdapter<Recetas> {
     }
 
     static class ViewHolder{
+        @BindView(R.id.image_receta)
         ImageView imgCapa;
+        @BindView(R.id.tituloReceta)
         TextView mTitulo;
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+
     }
 
 }

@@ -25,6 +25,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class StepsAdapter extends ArrayAdapter<Step>{
 
     private List<Step> mListSteps;
@@ -51,11 +54,7 @@ public class StepsAdapter extends ArrayAdapter<Step>{
         StepsAdapter.ViewHolder holder;
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_steps,null);
-            holder = new StepsAdapter.ViewHolder();
-            holder.mImagStep = (ImageView) convertView.findViewById(R.id.img_step);
-            holder.mNumberSteps = (TextView) convertView.findViewById(R.id.tv_numberSteps);
-            holder.mDescriptionsSteps = (TextView)convertView.findViewById(R.id.tv_descriptionsSteps);
-            holder.layoutSteps = (LinearLayout)convertView.findViewById(R.id.layout_steps);
+            holder = new StepsAdapter.ViewHolder(convertView);
             convertView.setTag(holder);
         }
         else{
@@ -99,10 +98,19 @@ public class StepsAdapter extends ArrayAdapter<Step>{
     }
 
     static class ViewHolder{
+        @BindView(R.id.img_step)
         ImageView mImagStep;
+        @BindView(R.id.tv_numberSteps)
         TextView mNumberSteps;
+        @BindView(R.id.tv_descriptionsSteps)
         TextView mDescriptionsSteps;
+        @BindView(R.id.layout_steps)
         LinearLayout layoutSteps;
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+
     }
 
     public static boolean isStepVisible() {
